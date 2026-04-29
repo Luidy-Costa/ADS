@@ -1,3 +1,13 @@
+// ==========================================
+// CONFIGURAÇÃO DA API
+// ==========================================
+// Quando fizer o deploy no Render, troque a linha abaixo pelo seu link. 
+// Exemplo: const URL_BACKEND = 'https://tropykaly-api.onrender.com/pedidos';
+const URL_BACKEND = 'http://localhost:8000/pedidos'; 
+
+// ==========================================
+// ESTADO DO CARRINHO
+// ==========================================
 let carrinho = [];
 
 function adicionarAoCarrinho(produto_id, nome, preco, tipo) {
@@ -44,8 +54,8 @@ async function finalizarPedido() {
     };
 
     try {
-        // Envia o POST para a nossa API em PHP
-        const resposta = await fetch('http://localhost:8000/pedidos', {
+        // Envia o POST usando a nossa variável de ambiente configurada no topo
+        const resposta = await fetch(URL_BACKEND, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,10 +68,10 @@ async function finalizarPedido() {
         if (resposta.ok) {
             mensagemRetorno.textContent = `✅ ${dados.mensagem} Total a pagar: R$ ${dados.total_com_desconto.toFixed(2)}`;
             
-            // CHAMA O WHATSAPP AQUI: Antes de limpar o carrinho, envia os dados pro link
+            // Aciona o WhatsApp com os dados
             enviarWhatsApp(dados.pedido_id, dados.total_com_desconto, formaPagamento);
 
-            carrinho = []; // Agora sim, limpa o carrinho
+            carrinho = []; // Limpa o carrinho
             atualizarInterfaceCarrinho();
         } else {
             mensagemRetorno.textContent = `❌ Erro: ${dados.erro}`;
