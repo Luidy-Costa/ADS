@@ -1,0 +1,18 @@
+# Ignora a pasta inteira de documentações genéricas e manuais
+Documentações/
+Livros/
+PDFs/
+# Ignora arquivos binários pesados (opcional, remova o '#' se quiser ativar)
+# *.zip
+# *.tar.gz
+
+# Arquivos temporários gerados pelo LaTeX nas pastas das matérias
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
