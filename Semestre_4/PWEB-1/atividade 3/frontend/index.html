@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tropykaly Pizzas e Lanches</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; max-width: 800px; margin: 0 auto; }
+        .produto { border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px; }
+        .carrinho { background-color: #f9f9f9; padding: 20px; border-radius: 5px; margin-top: 20px; }
+        button { background-color: #ff6b6b; color: white; border: none; padding: 10px 15px; cursor: pointer; border-radius: 3px;}
+        button:hover { background-color: #ff4757; }
+    </style>
+</head>
+<body>
+
+    <h1>🍕 Cardápio Tropykaly</h1>
+    
+    <div id="vitrine">
+        <div class="produto">
+            <h3>Pizza Calabresa</h3>
+            <p>R$ 45.00</p>
+            <button onclick="adicionarAoCarrinho(1, 'Pizza Calabresa', 45.00, 'pizza')">Adicionar</button>
+        </div>
+        <div class="produto">
+            <h3>Hambúrguer Especial</h3>
+            <p>R$ 25.00</p>
+            <button onclick="adicionarAoCarrinho(2, 'Hambúrguer Especial', 25.00, 'lanche')">Adicionar</button>
+        </div>
+        <div class="produto">
+            <h3>Refrigerante 2L</h3>
+            <p>R$ 12.00</p>
+            <button onclick="adicionarAoCarrinho(3, 'Refrigerante 2L', 12.00, 'bebida')">Adicionar</button>
+        </div>
+    </div>
+
+    <div class="carrinho">
+        <h2>🛒 Seu Carrinho</h2>
+        <ul id="lista-carrinho"></ul>
+        <p><strong>Forma de Pagamento:</strong> 
+            <select id="pagamento">
+                <option value="dinheiro">Dinheiro / Cartão</option>
+                <option value="pix">Pix (10% de desconto)</option>
+            </select>
+        </p>
+        <button onclick="finalizarPedido()">Finalizar Pedido</button>
+        <p id="mensagem-retorno" style="color: green; font-weight: bold; margin-top: 15px"></p>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

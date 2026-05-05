@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  # Nosso servidor PHP (Backend)
+  backend:
+    build: 
+      context: ./backend
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app # Mapeia os arquivos locais para atualizar em tempo real
+
+  # Servidor Nginx para a interface (Frontend)
+  frontend:
+    image: nginx:alpine
+    ports:
+      - "3000:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html # Coloca o HTML na pasta padrão do Nginx

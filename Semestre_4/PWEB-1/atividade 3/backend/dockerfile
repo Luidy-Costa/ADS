@@ -1,0 +1,14 @@
+# Usa a imagem oficial do PHP na versão CLI
+FROM php:8.2-cli
+
+# Define o diretório de trabalho dentro do container
+WORKDIR /app
+
+# Copia todos os arquivos da pasta backend para dentro do container
+COPY . /app
+
+# Expõe a porta 8000
+EXPOSE 8000
+
+# Inicia o servidor embutido do PHP apontando para o nosso roteador (index.php)
+CMD ["php", "-S", "0.0.0.0:8000", "index.php"]
