@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PaginaController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -15,3 +16,16 @@ Route::get('/curso/web', function () { return 'Disciplina Programação Web I'; 
 Route::get('/sobre', function () { return view('sobre'); });
 Route::get('/contato', function () { return view('contato'); });
 Route::get('/institucional/missao', function () { return view('missao'); });
+
+// Atividade 7
+Route::get('/empresa', [PaginaController::class, 'empresa']); 
+
+// Atividade 8
+Route::get('/servicos', [PaginaController::class, 'servicos']); 
+
+// Atividade 9
+Route::get('/portfolio', [PaginaController::class, 'portfolio']);
+Route::get('/blog', [PaginaController::class, 'blog']); 
+
+// Atividade 10
+Route::get('/equipe', [PaginaController::class, 'equipe']);
