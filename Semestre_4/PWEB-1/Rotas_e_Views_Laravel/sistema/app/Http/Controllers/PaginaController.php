@@ -25,8 +25,13 @@ class PaginaController extends Controller
         return view('blog'); 
     }
 
-    // Atividade 10 (Esse que você acabou de fazer!)
+    // Atividade 10
     public function equipe() { 
         return view('equipe'); 
+    }
+
+    // Atividade 12
+    public function produto($id) {
+        return "Produto ID: " . $id; 
     }
 }

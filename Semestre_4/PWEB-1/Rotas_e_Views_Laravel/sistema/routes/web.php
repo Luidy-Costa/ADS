@@ -29,3 +29,11 @@ Route::get('/blog', [PaginaController::class, 'blog']);
 
 // Atividade 10
 Route::get('/equipe', [PaginaController::class, 'equipe']);
+
+// Atividade 11
+Route::get('/usuario/{nome}', function ($nome) { 
+    return "Usuário: " . $nome; 
+});
+
+// Atividade 12
+Route::get('/produto/{id}', [PaginaController::class, 'produto']);
