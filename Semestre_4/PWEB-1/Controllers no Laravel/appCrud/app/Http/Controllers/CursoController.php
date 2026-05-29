@@ -10,4 +10,9 @@ class CursoController extends Controller
     {
         return "Lista de cursos";
     }
+
+    public function create()
+    {
+        return view('cursos.create');
+    }
 }
