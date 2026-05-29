@@ -15,4 +15,11 @@ class CursoController extends Controller
     {
         return view('cursos.create');
     }
+
+    public function listagem()
+    {
+        $cursos = ['Análise e Desenvolvimento de Sistemas', 'Redes de Computadores', 'Engenharia de Software'];
+        
+        return view('cursos.listagem', compact('cursos'));
+    }
 }
