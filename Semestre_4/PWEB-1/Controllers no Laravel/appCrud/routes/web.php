@@ -10,3 +10,5 @@ Route::get('/cursos/novo', [CursoController::class, 'create'])->name('cursos.cre
 Route::get('/cursos/lista', [CursoController::class, 'listagem'])->name('cursos.listagem');
 
 Route::get('/cursos/{id}', [CursoController::class, 'show'])->name('cursos.show');
+
+Route::post('/cursos', [CursoController::class, 'store'])->name('cursos.store');
