@@ -27,4 +27,10 @@ class CursoController extends Controller
     {
         return "Curso selecionado: ID " . $id;
     }
+
+    public function store(Request $request)
+    {
+        $nome = $request->input('nome');
+        return "Curso cadastrado: " . $nome;
+    }
 }
