@@ -22,4 +22,9 @@ class CursoController extends Controller
         
         return view('cursos.listagem', compact('cursos'));
     }
+
+    public function show($id)
+    {
+        return "Curso selecionado: ID " . $id;
+    }
 }
