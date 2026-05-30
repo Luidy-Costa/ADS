@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
+use App\Http\Controllers\AlunoController;
 
 Route::get('/cursos', [CursoController::class, 'index'])->name('cursos');
 
@@ -12,3 +13,5 @@ Route::get('/cursos/lista', [CursoController::class, 'listagem'])->name('cursos.
 Route::get('/cursos/{id}', [CursoController::class, 'show'])->name('cursos.show');
 
 Route::post('/cursos', [CursoController::class, 'store'])->name('cursos.store');
+
+Route::resource('alunos', AlunoController::class);
