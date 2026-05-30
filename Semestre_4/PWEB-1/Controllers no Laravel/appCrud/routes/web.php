@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\AlunoController;
 use App\Http\Controllers\DisciplinaController;
+use App\Http\Controllers\ProdutoController;
 
 Route::get('/cursos', [CursoController::class, 'index'])->name('cursos');
 
@@ -22,3 +23,7 @@ Route::get('/disciplinas', [DisciplinaController::class, 'index'])->name('discip
 Route::get('/disciplinas/cadastrar', [DisciplinaController::class, 'create'])->name('disciplinas.create');
 
 Route::get('/disciplinas/{id}', [DisciplinaController::class, 'show'])->name('disciplinas.show');
+
+Route::get('/produtos/create', [ProdutoController::class, 'create']);
+
+Route::post('/produtos', [ProdutoController::class, 'store']);
