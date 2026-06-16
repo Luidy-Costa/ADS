@@ -21,8 +21,8 @@ Este projeto consiste em um sistema web simples desenvolvido em **Laravel** para
 ## Tecnologias Utilizadas
 * **Framework:** Laravel 10.x / 11.x
 * **Linguagem:** PHP 8.x
-* **Banco de Dados:** MySQL
-* **Frontend:** Blade Templates (com Tailwind CSS ou Bootstrap)
+* **Banco de Dados:** MySQL / MariaDB
+* **Frontend:** Blade Templates
 * **Ferramentas:** Artisan CLI & Git
 
 ---
@@ -45,6 +45,57 @@ Este projeto consiste em um sistema web simples desenvolvido em **Laravel** para
 Siga o passo a passo abaixo para clonar, configurar e executar o projeto em sua máquina:
 
 ### 1. Clonar o Repositório
+Como o projeto está dentro de uma pasta específica, clone o repositório principal e navegue até o diretório do sistema:
+
 ```bash
-git clone <https://github.com/Luidy-Costa/ADS/tree/main/Semestre_4/PWEB-1/sistema-agua>
-cd <sistema-agua>
+git clone [https://github.com/Luidy-Costa/ADS.git](https://github.com/Luidy-Costa/ADS.git)
+cd ADS/Semestre_4/PWEB-1/sistema-agua
+```
+
+### 2. Instalar as Dependências do PHP
+Certifique-se de ter o Composer instalado e rode:
+
+```bash
+composer install
+```
+
+### 3. Configuração do Ambiente (.env)
+Copie o arquivo de exemplo para criar o seu arquivo oficial de configuração e gere a chave do sistema:
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Abra o arquivo `.env` recém-criado e configure a conexão com o banco de dados. Exemplo utilizando os dados gerados em aula:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=sistema_agua
+DB_USERNAME=admin
+DB_PASSWORD=123
+```
+
+### 4. Banco de Dados e Migrations
+No seu terminal do MySQL/MariaDB, crie o banco de dados vazio:
+
+```sql
+CREATE DATABASE sistema_agua;
+```
+
+Em seguida, rode as migrations para criar as tabelas necessárias:
+
+```bash
+php artisan migrate
+```
+
+### 5. Iniciar o Servidor
+Com tudo configurado, levante o servidor embutido do Laravel:
+
+```bash
+php artisan serve
+```
+
+Acesse no navegador: `http://localhost:8000`
