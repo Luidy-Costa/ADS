@@ -7,59 +7,29 @@ use Illuminate\Http\Request;
 
 class ConfiguracaoTaxaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Mostra a tela de configuração
     public function index()
     {
-        //
+        // Pega a primeira configuração ou cria o padrão de R$ 25 e R$ 2
+        $config = ConfiguracaoTaxa::firstOrCreate(
+            ['id' => 1],
+            ['taxa_fixa' => 25.00, 'valor_excedente' => 2.00]
+        );
+        
+        return view('configuracoes.index', compact('config'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    // Salva as alterações
+    public function update(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'taxa_fixa' => 'required|numeric',
+            'valor_excedente' => 'required|numeric',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        $config = ConfiguracaoTaxa::first();
+        $config->update($request->all());
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(ConfiguracaoTaxa $configuracaoTaxa)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(ConfiguracaoTaxa $configuracaoTaxa)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ConfiguracaoTaxa $configuracaoTaxa)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(ConfiguracaoTaxa $configuracaoTaxa)
-    {
-        //
+        return redirect()->back()->with('sucesso', 'Taxas atualizadas com sucesso!');
     }
 }

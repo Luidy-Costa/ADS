@@ -19,6 +19,10 @@
         <button style="margin-bottom: 20px; padding: 10px; margin-left: 10px; background-color: #008CBA; color: white; border: none; cursor: pointer;">🧾 Ver Faturas</button>
     </a>
 
+    <a href="{{ route('configuracoes.index') }}">
+        <button style="margin-bottom: 20px; padding: 10px; margin-left: 10px; background-color: #f39c12; color: white; border: none; cursor: pointer;">⚙️ Configurações</button>
+    </a>
+
     <table border="1" cellpadding="10" cellspacing="0" width="100%">
         <tr style="background-color: #f2f2f2;">
             <th>Nome</th>
