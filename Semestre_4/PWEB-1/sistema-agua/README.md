@@ -1,58 +1,50 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Instituto Federal do Ceará — IFCE | Campus Boa Viagem | Curso de ADS
+## Avaliação Prática
+### Semestre 2026.1 | Disciplina: Programação Web I
+### Professor: Renato William Rodrigues de Souza
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+# Sistema de Gestão de Abastecimento de Água Comunitário
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Este projeto consiste em um sistema web simples desenvolvido em **Laravel** para substituir o processo manual de gerenciamento de abastecimento de água de uma associação comunitária. O sistema automatiza o cadastro de consumidores, o registro das leituras mensais de consumo (realizado pelo leiturista), o cálculo automático das faturas baseado em regras de cobrança configuráveis e a notificação de cobrança via WhatsApp.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Trio Integrante
+* **Aerton David Barbosa Mendes**
+* **Letícia Justino Maciel**
+* **Luidy Costa dos Santos**
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Tecnologias Utilizadas
+* **Framework:** Laravel 10.x / 11.x
+* **Linguagem:** PHP 8.x
+* **Banco de Dados:** MySQL
+* **Frontend:** Blade Templates (com Tailwind CSS ou Bootstrap)
+* **Ferramentas:** Artisan CLI & Git
 
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
+## Regras de Negócio e Cobrança Implementadas
 
-## Agentic Development
+* **Taxa Fixa (Até 10 m³ ou 10.000 litros):** Valor padrão de R$ 25,00 (configurável pelo painel do gestor).
+* **Excedente (Acima de 10 m³):** Taxa fixa + R$ 2,00 (configurável) por cada 1 m³ (1.000 litros) excedente.
+  * *Exemplo:* Consumo de 15 m³ → R$ 25,00 (fixa) + R$ 10,00 (5 m³ excedentes × R$ 2,00) = R$ 35,00 totais.
+* **Consumo Mensal:** Calculado dinamicamente através da fórmula: `Consumo = Leitura Atual - Leitura Anterior`.
+* **Validações de Segurança:**
+    * A leitura atual não pode, em hipótese alguma, ser menor que a leitura anterior.
+    * É permitida apenas uma única leitura por consumidor dentro do mesmo mês/ano de referência.
+    * O número do medidor é único para cada consumidor cadastrado.
 
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+---
 
+## Como Instalar e Rodar o Projeto Localmente
+
+Siga o passo a passo abaixo para clonar, configurar e executar o projeto em sua máquina:
+
+### 1. Clonar o Repositório
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+git clone <https://github.com/Luidy-Costa/ADS/tree/main/Semestre_4/PWEB-1/sistema-agua>
+cd <sistema-agua>
