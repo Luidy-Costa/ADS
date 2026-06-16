@@ -7,59 +7,44 @@ use Illuminate\Http\Request;
 
 class ConsumidorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    // Lista todos os consumidores
     public function index()
     {
-        //
+        $consumidores = Consumidor::all();
+        return view('consumidores.index', compact('consumidores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+    // Mostra o formulário de criar novo
     public function create()
     {
-        //
+        return view('consumidores.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    // Salva o novo no banco
     public function store(Request $request)
     {
-        //
+        // Validação básica
+        $request->validate([
+            'nome' => 'required',
+            'endereco' => 'required',
+            'telefone' => 'required',
+            'numero_medidor' => 'required|unique:consumidores'
+        ]);
+
+        Consumidor::create($request->all());
+        return redirect()->route('consumidores.index');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Consumidor $consumidor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
+    // Mostra o formulário de edição
     public function edit(Consumidor $consumidor)
     {
-        //
+        return view('consumidores.edit', compact('consumidor'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    // Atualiza no banco
     public function update(Request $request, Consumidor $consumidor)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Consumidor $consumidor)
-    {
-        //
+        $consumidor->update($request->all());
+        return redirect()->route('consumidores.index');
     }
 }
