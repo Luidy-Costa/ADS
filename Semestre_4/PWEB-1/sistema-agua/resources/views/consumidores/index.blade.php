@@ -10,6 +10,10 @@
     <a href="{{ route('consumidores.create') }}">
         <button style="margin-bottom: 20px; padding: 10px;">+ Novo Consumidor</button>
     </a>
+    
+    <a href="{{ route('leituras.create') }}">
+        <button style="margin-bottom: 20px; padding: 10px; margin-left: 10px; background-color: #4CAF50; color: white; border: none; cursor: pointer;">📝 Registrar Leitura</button>
+    </a>
 
     <table border="1" cellpadding="10" cellspacing="0" width="100%">
         <tr style="background-color: #f2f2f2;">

@@ -3,63 +3,76 @@
 namespace App\Http\Controllers;
 
 use App\Models\Leitura;
+use App\Models\Consumidor;
+use App\Models\Fatura;
+use App\Models\ConfiguracaoTaxa;
 use Illuminate\Http\Request;
 
 class LeituraController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
+    public function create() {
+        $consumidores = Consumidor::all();
+        return view('leituras.create', compact('consumidores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+    public function store(Request $request) {
+        // Validações básicas
+        $request->validate([
+            'consumidor_id' => 'required',
+            'mes_referencia' => 'required|integer|min:1|max:12',
+            'ano_referencia' => 'required|integer',
+            'leitura_atual' => 'required|numeric',
+        ]);
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+        // Busca a leitura do mês passado automaticamente (se existir)
+        $ultima = Leitura::where('consumidor_id', $request->consumidor_id)->orderBy('id', 'desc')->first();
+        $leituraAnterior = $ultima ? $ultima->leitura_atual : 0;
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Leitura $leitura)
-    {
-        //
-    }
+        // Validação 1: Leitura atual não pode ser menor que a anterior
+        if ($request->leitura_atual < $leituraAnterior) {
+            return back()->withErrors(['erro' => 'A leitura atual não pode ser menor que a anterior (' . $leituraAnterior . ' m³).']);
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Leitura $leitura)
-    {
-        //
-    }
+        // Validação 2: Impede duas leituras no mesmo mês para a mesma pessoa
+        $existe = Leitura::where('consumidor_id', $request->consumidor_id)
+                         ->where('mes_referencia', $request->mes_referencia)
+                         ->where('ano_referencia', $request->ano_referencia)
+                         ->first();
+        if ($existe) {
+            return back()->withErrors(['erro' => 'Já existe uma leitura registrada neste mês/ano para este consumidor.']);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Leitura $leitura)
-    {
-        //
-    }
+        // Calcula o consumo (m³)
+        $consumo = $request->leitura_atual - $leituraAnterior;
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Leitura $leitura)
-    {
-        //
+        // 1. Salva a Leitura
+        $leitura = Leitura::create([
+            'consumidor_id' => $request->consumidor_id,
+            'mes_referencia' => $request->mes_referencia,
+            'ano_referencia' => $request->ano_referencia,
+            'leitura_anterior' => $leituraAnterior,
+            'leitura_atual' => $request->leitura_atual,
+            'consumo_m3' => $consumo
+        ]);
+
+        // 2. Calcula a Fatura
+        $config = ConfiguracaoTaxa::first();
+        $taxaFixa = $config ? $config->taxa_fixa : 25.00; // Puxa do banco ou usa o padrão
+        $valorExcedente = $config ? $config->valor_excedente : 2.00;
+
+        $valorFatura = $taxaFixa;
+        if ($consumo > 10) { // Regra: Acima de 10m³ cobra excedente
+            $valorFatura += ($consumo - 10) * $valorExcedente;
+        }
+
+        // 3. Salva a Fatura
+        Fatura::create([
+            'leitura_id' => $leitura->id,
+            'consumidor_id' => $request->consumidor_id,
+            'valor_total' => $valorFatura,
+            'status' => 'pendente'
+        ]);
+
+        return redirect()->route('consumidores.index');
     }
 }
